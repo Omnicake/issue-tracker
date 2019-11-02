@@ -1,0 +1,39 @@
+img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .logo {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s;
+  }
+  
+  .logo:hover {
+    text-decoration: none;
+    color: red;
+    transition: color 0.3s;
+  }
+  
+  .brand-name {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .issue-title {
+    font-size: 1.5em;
+  }
+  
+  .issue-card .issue-buttons {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .issue-card:hover .issue-buttons {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+  
+  .issue-number span {
+    margin-left: 5px;
+  }

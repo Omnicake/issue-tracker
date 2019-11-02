@@ -1,0 +1,73 @@
+include includes/head.pug
+main
+
+  div.container
+    div.row
+      div.col
+        h2.text-center.mt-4 Search
+        form(method='GET' action='/search').bg-light.rounded.shadow.p-2     
+          div.row            
+            div.col
+              label(for="title") Title:
+              input(type="text", id="title", name="issue_title", placeholder="Contains...").form-control.form-control-sm
+            div.col
+              label(for="description") Description:
+              input(type="text", id="description", name="issue_text", placeholder="Contains...").form-control.form-control-sm
+            div.col
+              label(for="date") Created at:
+              input(type="date", id="date", name="created_on").form-control.form-control-sm
+          div.row.mt-2
+            div.col
+              label(for="author") Author:
+              input(type="text", id="author", name="created_by", placeholder="Contains...").form-control.form-control-sm
+            div.col
+              label(for="assigned") Assigned to:
+              input(type="text", id="assigned", name="assigned_to", placeholder="Contains...").form-control.form-control-sm
+            div.col
+              label(for="status") Status:
+              select(id="status", name="status").form-control.form-control-sm
+                option(value="", selected) ---
+                option(value="open") Open
+                option(value="close") Closed
+          div.row.mt-2
+            div.col.d-flex.justify-content-center
+              button(type="submit").btn.btn-primary Search
+    div.row.mt-2
+          div.col.d-flex.align-items-center.justify-content-center
+            if count == 0
+              p.font-weight-bold.text-center No records found :(
+            if count == 1
+              p.font-weight-bold.text-center Find #{count} record!
+            if count > 1
+              p.font-weight-bold.text-center Find #{count} records!
+    each record in data
+      div.row
+        div.col
+          div.issue-card.bg-light.d-flex.justify-content-between.mt-4.shadow-sm.rounded
+            div.issue-info.d-flex.flex-column.justify-content-between.w-50
+              h6.issue-number.p-1.font-light.text-primary
+                a(href='/issues/' + record._id) ISSUE-#{record._id}
+                if record.open
+                  span.badge.badge-danger.font-weight-normal Open
+                else
+                  span.badge.badge-success.font-weight-normal Closed
+                -let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                span.font-weight-light.text-black-50.p-1 #{record.created_on.getDate()} #{months[record.created_on.getMonth()]} of #{record.created_on.getFullYear()} 
+              span.issue-title.font-weight-bold.p-1 #{record.issue_title}             
+              span.issue-author.font-weight-light.p-1 #{record.created_by}              
+            div.issue-assign.d-flex.align-items-end.ml-auto.w-25
+              span.assign-text.p-2.font-weight-bold Assigned to:
+              if record.assigned_to == ''
+                span.assign-name.p-2.font-weight-light None
+              else
+                span.assign-name.p-2.font-weight-bold #{record.assigned_to}   
+            div.issue-buttons.d-flex.align-items-center
+              a(href="/issues/" + record._id, data-toggle="popover", data-content="Show an issue", data-trigger="hover").btn.btn-primary.p-1.m-1
+                i.fas.fa-search
+              a(href="/edit/" + record._id, data-toggle="popover", data-content="Edit issue", data-trigger="hover").btn.btn-warning.p-1.m-1.text-white
+                i.far.fa-edit
+              button(data-toggle="modal", data-target="#deleteModal", id=record._id).btn.btn-danger.p-1.m-1.mr-2.delete
+                i(data-toggle="popover", data-content="Delete issue", data-trigger="hover").fas.fa-trash-alt
+include includes/footer.pug
+include includes/modal.pug
+script(src="/public/app.js")

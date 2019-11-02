@@ -1,0 +1,38 @@
+html
+  head
+    title Omnicake Issue Tracker
+    meta(name='description', content='Omnicake freeCodeCamp project')
+    link#favicon(rel='icon', href='data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AGvO/wCt7/8ASnOtANra/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREAAAAAAQiIiJAAAAAQjMzMyQAAABCMzMzJAAAAEQ0Q0QkAAAEEUEUEUFAAAQREREREUAABBERERERQAAAQRREQRQAAABBRVVUFAAAAARFVVRAAAAAAEFVVAAAAAAABBVAAAAAAAAARAAAAAAAAAAAAAAAD//wAA+B8AAPAPAADgBwAA4AcAAOAHAADAAwAAwAMAAMADAADgBwAA4AcAAPAPAAD4HwAA/D8AAP5/AAD//wAA', type='image/x-icon')
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/public/style.css')
+    link(
+      rel="stylesheet",
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T",
+      crossorigin="anonymous"
+      )
+    link(
+      rel="stylesheet",
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    )
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+    script(src="https://kit.fontawesome.com/96f08af64f.js", crossorigin="anonymous")
+  body
+    nav.navbar.navbar-expand-lg.d-flex.justify-content-between.bg-light.shadow-sm.align-items-center
+      a.logo.navbar-brand(href="/")
+        img(src='https://cdn0.iconfinder.com/data/icons/bakery-10/512/Cake-512.png')
+        span.brand-name Omnicake Issue Tracker
+      div.d-flex
+        form(action="/search", method="POST").form-inline.m-0
+          input(type="text", name="search", placeholder="Quick search...").form-control.mr-1
+          button(type="submit").btn.btn-primary.mr-2
+            i.fas.fa-search
+        a.btn.btn-primary.mr-2(href="/search")
+          | Find issue
+        a.btn.btn-success(href="/add")
+          i.fas.fa-plus
+          |  Add issue

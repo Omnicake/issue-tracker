@@ -1,0 +1,22 @@
+include includes/head.pug
+include includes/footer.pug
+main 
+  div.container
+    div.row
+      div.col.bg-light.mt-4.rounded.shadow
+        div.d-flex.justify-content-between.mb-2.mt-2
+          h3 Edit ISSUE-#{issue._id}
+          a(href='/').btn.btn-secondary Back
+        form(method='POST' action=`/edit/${issue._id}?_method=PUT`)
+          div.form-group
+            input.form-control(type='text', name='issue_title', placeholder='Title', value=issue.issue_title, required)
+            small.form-text.text-muted Title of issue
+          div.form-group
+            input.form-control(type='text', name='issue_text', placeholder='Description', value=issue.issue_text, required)
+            small.form-text.text-muted Description of issue
+          div.row.form-group
+            div.col
+              input.form-control(type='text', name='created_by', placeholder='Author', value=issue.created_by, required)
+            div.col
+              input.form-control(type='text', name='assigned_to', placeholder='Assigned to', value=issue.assigned_to)
+          button(type='submit').btn.btn-warning.mx-auto.d-block Update

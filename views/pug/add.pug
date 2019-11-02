@@ -1,0 +1,33 @@
+include includes/head.pug
+include includes/footer.pug
+main 
+  div.container
+    if errors
+      div.row
+        div.col.mt-4.p-2
+          ul.list-group
+          each error in Object.entries(errors)
+            li.list-group-item.list-group-item-danger #{error[1]}
+    div.row
+      div.col.bg-light.mt-4.rounded.shadow
+        div.d-flex.justify-content-between.mb-2.mt-2
+          h3 Create a new issue
+          a(href='/').btn.btn-secondary Back
+        form(method='POST' action='/add')
+          div.form-group
+            input.form-control(type='text', name='issue_title', placeholder='Title*', required)
+            small.form-text.text-muted Title of issue
+          div.form-group
+            input.form-control(type='text', name='issue_text', placeholder='Description*', required)
+            small.form-text.text-muted Description of issue
+          div.row.form-group
+            div.col
+              input.form-control(type='text', name='created_by', placeholder='Author*', required)
+            div.col
+              input.form-control(type='text', name='assigned_to', placeholder='Assigned to')
+          div.row.form-group
+            div.col-6
+              select.form-control(name='status')
+                option(value='open') Open
+                option(value='close') Close
+          button(type='submit').btn.btn-primary.mx-auto.d-block Create

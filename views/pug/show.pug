@@ -1,0 +1,52 @@
+include includes/head.pug
+main
+  div.container
+    div.row
+      div.col.mt-4.rounded.shadow.bg-light.d-flex.flex-column.pt-2
+        div.bg-white.mt-2.rounded.p-2.d-flex.justify-content-between.align-items-center
+          h6.issue-number.text-primary
+            |ISSUE-#{issue._id}
+            if issue.open
+              span.badge.badge-danger.font-weight-normal Open
+            else
+              span.badge.badge-success.font-weight-normal Closed
+          a(href="/").btn.btn-secondary Back
+        div.d-flex.justify-content-between.align-items-center.mt-2.p-2.bg-white.rounded
+          span.issue-title.font-weight-bold #{issue.issue_title}
+          div
+            span.font-weight-bold Author:
+            span.issue-author.font-weight-light.ml-2 #{issue.created_by}
+        div.d-flex.align-items-center.justify-content-between.mt-2.p-2.bg-white.rounded
+          div
+            span.font-weight-bold Created:
+            -let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            span.font-weight-light.ml-2 #{issue.created_on.getDate()} #{months[issue.created_on.getMonth()]} of #{issue.created_on.getFullYear()} 
+          div
+            span.assign-title.font-weight-bold Assigned to:
+            if issue.assigned_to == ''
+              span.assign-name.ml-2 None
+            else
+              span.assign-name.ml-2 #{issue.assigned_to}
+        p.issue-description.p-2.mt-2.bg-white.rounded #{issue.issue_text}
+        div.m-1.mb-2.rounded.d-flex.justify-content-center.align-items.center
+          if issue.open
+            form(method='POST' action=`/issues/${issue._id}?_method=PUT`).m-0
+              input(type='hidden', name='status', value='close')
+              button(type='submit').btn.btn-success.m-1
+                i.fas.fa-check
+                |  Close
+          else
+            form(method='POST' action=`/issues/${issue._id}?_method=PUT`).m-0
+              input(type='hidden', name='status', value='open')
+              button(type='submit').btn.btn-primary.m-1
+                i.fas.fa-times
+                |  Reopen
+          a(href=`/edit/${issue._id}`).btn.btn-warning.m-1
+            i.fas.fa-edit
+            |  Edit
+          button(data-toggle="modal", data-target="#deleteModal", id=issue._id).btn.btn-danger.m-1.delete 
+            i.fas.fa-trash-alt
+            |  Delete
+include includes/footer.pug
+include includes/modal.pug
+script(src="/public/app.js")
